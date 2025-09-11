@@ -1,0 +1,22 @@
+# Archivos de base de datos
+*.bak
+*.mdf
+*.ldf
+
+# Archivos temporales
+*.tmp
+*.log
+*.user
+
+# Carpetas generadas por Visual Studio
+bin/
+obj/
+Debug/
+Release/
+
+# Paquetes SSIS temporales
+*.dtsx.deploy
+*.ispac
+
+# Otros
+~$*
