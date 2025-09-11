@@ -1,0 +1,12 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="DESKTOP-L2CUOSF_SQL2022DW.DW_Chinook"
+  DTS:DTSID="{882B7DB1-7E3F-4BB1-A8CD-8EFF11814482}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectRetryCount="1"
+      DTS:ConnectRetryInterval="5"
+      DTS:ConnectionString="Data Source=DESKTOP-L2CUOSF\SQL2022DW;Initial Catalog=DW_Chinook;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-ChinookDW_ETL-{882B7DB1-7E3F-4BB1-A8CD-8EFF11814482}DESKTOP-L2CUOSF\SQL2022DW.DW_Chinook;Auto Translate=False;" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

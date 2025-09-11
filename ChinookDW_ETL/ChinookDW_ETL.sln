@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35828.75 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{C9674DCB-5085-4A16-B785-4C70DD1589BD}") = "ChinookDW_ETL", "ChinookDW_ETL\ChinookDW_ETL.dtproj", "{1A057C43-5C02-7D37-B6FE-3BF38681E5CF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1A057C43-5C02-7D37-B6FE-3BF38681E5CF}.Development|Default.ActiveCfg = Development
+		{1A057C43-5C02-7D37-B6FE-3BF38681E5CF}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AD5F3A29-AD85-43B3-B592-4DCF3EAB4530}
+	EndGlobalSection
+EndGlobal
