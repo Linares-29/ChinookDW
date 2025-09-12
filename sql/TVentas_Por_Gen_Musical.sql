@@ -1,4 +1,4 @@
--- 2) Total de ventas por género musical
+-- Total de ventas por género musical
 SELECT 
   dg.GenreName,
   SUM(fs.LineTotal) AS TotalVentas
