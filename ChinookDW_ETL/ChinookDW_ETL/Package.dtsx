@@ -11,8 +11,8 @@
   DTS:LocaleID="2058"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="36"
-  DTS:VersionGUID="{96EEE759-C97F-4B69-B0AF-66F6C5E1A3B9}">
+  DTS:VersionBuild="37"
+  DTS:VersionGUID="{B6E2B3F7-9278-4818-9B12-55BF3E2C25E4}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -2218,7 +2218,7 @@ FROM dbo.Genre;</property>
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{882B7DB1-7E3F-4BB1-A8CD-8EFF11814482}"
-          SQLTask:SqlStatementSource="&#xA;IF NOT EXISTS (SELECT 1 FROM sys.schemas WHERE name='dw')&#xA;    EXEC('CREATE SCHEMA dw');&#xA;&#xA;&#xA;IF OBJECT_ID('dw.DimDate') IS NULL&#xA;BEGIN&#xA;  CREATE TABLE dw.DimDate(&#xA;    DateKey    INT PRIMARY KEY,&#xA;    [Date]     DATE NOT NULL,&#xA;    [Year]     INT  NOT NULL,&#xA;    [Quarter]  TINYINT NOT NULL,&#xA;    [Month]    TINYINT NOT NULL,&#xA;    [MonthName] VARCHAR(12) NOT NULL,&#xA;    [Day]      TINYINT NOT NULL,&#xA;    [Week]     TINYINT NOT NULL&#xA;  );&#xA;END;&#xA;&#xA;;WITH d AS (&#xA;  -- OJO: tres-partes. Funciona si Chinook está en la misma instancia que DW_Chinook&#xA;  SELECT DISTINCT CAST(i.InvoiceDate AS DATE) AS [Date]&#xA;  FROM Chinook.dbo.Invoice AS i&#xA;),&#xA;x AS (&#xA;  SELECT&#xA;    DateKey   = YEAR([Date])*10000 + MONTH([Date])*100 + DAY([Date]),&#xA;    [Date],&#xA;    [Year]    = YEAR([Date]),&#xA;    [Quarter] = DATEPART(QUARTER,[Date]),&#xA;    [Month]   = MONTH([Date]),&#xA;    [MonthName] = DATENAME(MONTH,[Date]),&#xA;    [Day]     = DAY([Date]),&#xA;    [Week]    = DATEPART(WEEK,[Date])&#xA;  FROM d&#xA;)&#xA;INSERT INTO dw.DimDate (DateKey,[Date],[Year],[Quarter],[Month],[MonthName],[Day],[Week])&#xA;SELECT x.DateKey, x.[Date], x.[Year], x.[Quarter], x.[Month], x.[MonthName], x.[Day], x.[Week]&#xA;FROM x&#xA;WHERE NOT EXISTS (SELECT 1 FROM dw.DimDate t WHERE t.DateKey = x.DateKey);&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="&#xA;IF NOT EXISTS (SELECT 1 FROM sys.schemas WHERE name='dw')&#xA;    EXEC('CREATE SCHEMA dw');&#xA;&#xA;&#xA;IF OBJECT_ID('dw.DimDate') IS NULL&#xA;BEGIN&#xA;  CREATE TABLE dw.DimDate(&#xA;    DateKey    INT PRIMARY KEY,&#xA;    [Date]     DATE NOT NULL,&#xA;    [Year]     INT  NOT NULL,&#xA;    [Quarter]  TINYINT NOT NULL,&#xA;    [Month]    TINYINT NOT NULL,&#xA;    [MonthName] VARCHAR(12) NOT NULL,&#xA;    [Day]      TINYINT NOT NULL,&#xA;    [Week]     TINYINT NOT NULL&#xA;  );&#xA;END;&#xA;&#xA;;WITH d AS (&#xA;  SELECT DISTINCT CAST(i.InvoiceDate AS DATE) AS [Date]&#xA;  FROM Chinook.dbo.Invoice AS i&#xA;),&#xA;x AS (&#xA;  SELECT&#xA;    DateKey   = YEAR([Date])*10000 + MONTH([Date])*100 + DAY([Date]),&#xA;    [Date],&#xA;    [Year]    = YEAR([Date]),&#xA;    [Quarter] = DATEPART(QUARTER,[Date]),&#xA;    [Month]   = MONTH([Date]),&#xA;    [MonthName] = DATENAME(MONTH,[Date]),&#xA;    [Day]     = DAY([Date]),&#xA;    [Week]    = DATEPART(WEEK,[Date])&#xA;  FROM d&#xA;)&#xA;INSERT INTO dw.DimDate (DateKey,[Date],[Year],[Quarter],[Month],[MonthName],[Day],[Week])&#xA;SELECT x.DateKey, x.[Date], x.[Year], x.[Quarter], x.[Month], x.[MonthName], x.[Day], x.[Week]&#xA;FROM x&#xA;WHERE NOT EXISTS (SELECT 1 FROM dw.DimDate t WHERE t.DateKey = x.DateKey);&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
@@ -2312,13 +2312,37 @@ FROM dbo.Genre;</property>
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
+          Size="170,42"
+          Id="Package\DF_Load_FactSales"
+          TopLeft="1069.69230769231,103.307692307692" />
+        <NodeLayout
+          Size="173,42"
+          Id="Package\DF_Stage_DimArtist"
+          TopLeft="295.307692307692,50.7692307692308" />
+        <NodeLayout
           Size="194,42"
           Id="Package\DF_Stage_DimCustomer"
           TopLeft="31.5,49.5" />
         <NodeLayout
+          Size="177,42"
+          Id="Package\DF_Stage_DimGenre"
+          TopLeft="600.846153846153,57.6923076923077" />
+        <NodeLayout
+          Size="173,42"
+          Id="Package\SQL_Load_DimDate"
+          TopLeft="843.76923076923,103.615384615385" />
+        <NodeLayout
+          Size="187,42"
+          Id="Package\SQL_MERGE_DimArtist"
+          TopLeft="301.307692307692,164.76923076923" />
+        <NodeLayout
           Size="207,42"
           Id="Package\SQL_MERGE_DimCustomer"
           TopLeft="31,161" />
+        <NodeLayout
+          Size="190,42"
+          Id="Package\SQL_MERGE_DimGenre"
+          TopLeft="602.846153846153,158.692307692308" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
           TopLeft="131.5,91.5">
@@ -2341,14 +2365,6 @@ FROM dbo.Genre;</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="173,42"
-          Id="Package\DF_Stage_DimArtist"
-          TopLeft="295.307692307692,50.7692307692308" />
-        <NodeLayout
-          Size="187,42"
-          Id="Package\SQL_MERGE_DimArtist"
-          TopLeft="301.307692307692,164.76923076923" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
           TopLeft="381.807692307692,92.7692307692307">
@@ -2383,14 +2399,6 @@ FROM dbo.Genre;</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="177,42"
-          Id="Package\DF_Stage_DimGenre"
-          TopLeft="600.846153846153,57.6923076923077" />
-        <NodeLayout
-          Size="190,42"
-          Id="Package\SQL_MERGE_DimGenre"
-          TopLeft="602.846153846153,158.692307692308" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 2]"
           TopLeft="689.346153846153,99.6923076923077">
@@ -2425,44 +2433,64 @@ FROM dbo.Genre;</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="173,42"
-          Id="Package\SQL_Load_DimDate"
-          TopLeft="843.76923076923,103.615384615385" />
-        <NodeLayout
-          Size="170,42"
-          Id="Package\DF_Load_FactSales"
-          TopLeft="1069.69230769231,103.307692307692" />
       </GraphLayout>
     </LayoutInfo>
   </Package>
   <TaskHost
-    design-time-name="Package\DF_Stage_DimCustomer">
+    design-time-name="Package\DF_Load_FactSales">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="216,42"
-          Id="Package\DF_Stage_DimCustomer\DST_stg_DimCustomer (DW)"
-          TopLeft="399,169" />
+          Size="222,42"
+          Id="Package\DF_Load_FactSales\LKP_Customer (DimCustomer)"
+          TopLeft="16,143" />
         <NodeLayout
-          Size="198,42"
-          Id="Package\DF_Stage_DimCustomer\SRC_Customer (Chinook)"
-          TopLeft="414,36" />
+          Size="189,42"
+          Id="Package\DF_Load_FactSales\LKP_Genre (DimGenre)"
+          TopLeft="341,266" />
+        <NodeLayout
+          Size="150,42"
+          Id="Package\DF_Load_FactSales\OLE DB Source"
+          TopLeft="258,16" />
+        <NodeLayout
+          Size="182,42"
+          Id="Package\DF_Load_FactSales\LKP_Artist (DimArtist)"
+          TopLeft="341,146" />
+        <NodeLayout
+          Size="176,42"
+          Id="Package\DF_Load_FactSales\LKP_Date (DimDate)"
+          TopLeft="37,66" />
+        <NodeLayout
+          Size="171,42"
+          Id="Package\DF_Load_FactSales\OLE DB Destination"
+          TopLeft="62,357" />
         <EdgeLayout
-          Id="Package\DF_Stage_DimCustomer.Paths[OLE DB Source Output]"
-          TopLeft="510,78">
+          Id="Package\DF_Load_FactSales.Paths[OLE DB Source Output]"
+          TopLeft="258,37">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,91"
+              EndConnector="-45,50"
               Start="0,0"
-              End="0,83.5">
+              End="-37.5,50">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,83.5" />
+                    End="-18.5,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-18.5,0"
+                    Point2="-22.5,0"
+                    Point3="-22.5,4" />
+                  <mssgle:LineSegment
+                    End="-22.5,46" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-22.5,46"
+                    Point2="-22.5,50"
+                    Point3="-26.5,50" />
+                  <mssgle:LineSegment
+                    End="-37.5,50" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2471,11 +2499,219 @@ FROM dbo.Genre;</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DF_Load_FactSales.Paths[Lookup Match Output3]"
+          TopLeft="435.5,308">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-288,49"
+              Start="0,0"
+              End="-288,41.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.5"
+                    Point2="0,24.5"
+                    Point3="-4,24.5" />
+                  <mssgle:LineSegment
+                    End="-284,24.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-284,24.5"
+                    Point2="-288,24.5"
+                    Point3="-288,28.5" />
+                  <mssgle:LineSegment
+                    End="-288,41.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-192.19138671875,29.5,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DF_Load_FactSales.Paths[Lookup Match Output2]"
+          TopLeft="433.75,188">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,78"
+              Start="0,0"
+              End="0,70.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,70.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,29.4453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DF_Load_FactSales.Paths[Lookup Match Output1]"
+          TopLeft="238,165.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="103,0"
+              Start="0,0"
+              End="95.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="95.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-0.441386718750003,5,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DF_Load_FactSales.Paths[Lookup Match Output]"
+          TopLeft="126,108">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,35"
+              Start="0,0"
+              End="0,27.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,7.9453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\DF_Stage_DimCustomer\DST_stg_DimCustomer (DW)">
+    design-time-name="Package\DF_Load_FactSales\LKP_Customer (DimCustomer)">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dw].[DimCustomer]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DF_Load_FactSales\LKP_Genre (DimGenre)">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dw].[DimGenre]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DF_Load_FactSales\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DF_Load_FactSales\LKP_Artist (DimArtist)">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dw].[DimArtist]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DF_Load_FactSales\LKP_Date (DimDate)">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dw].[DimDate]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DF_Load_FactSales\OLE DB Destination">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -2484,14 +2720,6 @@ FROM dbo.Genre;</property>
         <Name>TableInfoObjectType</Name>
         <Value
           type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\DF_Stage_DimCustomer\SRC_Customer (Chinook)">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
       </Property>
     </Properties>
   </PipelineComponentMetadata>
@@ -2555,6 +2783,65 @@ FROM dbo.Genre;</property>
     </Properties>
   </PipelineComponentMetadata>
   <TaskHost
+    design-time-name="Package\DF_Stage_DimCustomer">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="216,42"
+          Id="Package\DF_Stage_DimCustomer\DST_stg_DimCustomer (DW)"
+          TopLeft="399,169" />
+        <NodeLayout
+          Size="198,42"
+          Id="Package\DF_Stage_DimCustomer\SRC_Customer (Chinook)"
+          TopLeft="414,36" />
+        <EdgeLayout
+          Id="Package\DF_Stage_DimCustomer.Paths[OLE DB Source Output]"
+          TopLeft="510,78">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,91"
+              Start="0,0"
+              End="0,83.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,83.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DF_Stage_DimCustomer\DST_stg_DimCustomer (DW)">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DF_Stage_DimCustomer\SRC_Customer (Chinook)">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
     design-time-name="Package\DF_Stage_DimGenre">
     <LayoutInfo>
       <GraphLayout
@@ -2593,14 +2880,6 @@ FROM dbo.Genre;</property>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\DF_Stage_DimGenre\OLE DB Source">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
     design-time-name="Package\DF_Stage_DimGenre\OLE DB Destination">
     <Properties>
       <Property>
@@ -2613,290 +2892,11 @@ FROM dbo.Genre;</property>
       </Property>
     </Properties>
   </PipelineComponentMetadata>
-  <TaskHost
-    design-time-name="Package\DF_Load_FactSales">
-    <LayoutInfo>
-      <GraphLayout
-        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
-        <NodeLayout
-          Size="150,42"
-          Id="Package\DF_Load_FactSales\OLE DB Source"
-          TopLeft="258,16" />
-        <NodeLayout
-          Size="176,42"
-          Id="Package\DF_Load_FactSales\LKP_Date (DimDate)"
-          TopLeft="37,66" />
-        <NodeLayout
-          Size="222,42"
-          Id="Package\DF_Load_FactSales\LKP_Customer (DimCustomer)"
-          TopLeft="16,143" />
-        <NodeLayout
-          Size="182,42"
-          Id="Package\DF_Load_FactSales\LKP_Artist (DimArtist)"
-          TopLeft="341,146" />
-        <NodeLayout
-          Size="189,42"
-          Id="Package\DF_Load_FactSales\LKP_Genre (DimGenre)"
-          TopLeft="341,266" />
-        <EdgeLayout
-          Id="Package\DF_Load_FactSales.Paths[OLE DB Source Output]"
-          TopLeft="258,37">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-45,50"
-              Start="0,0"
-              End="-37.5,50">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="-18.5,0" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-18.5,0"
-                    Point2="-22.5,0"
-                    Point3="-22.5,4" />
-                  <mssgle:LineSegment
-                    End="-22.5,46" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-22.5,46"
-                    Point2="-22.5,50"
-                    Point3="-26.5,50" />
-                  <mssgle:LineSegment
-                    End="-37.5,50" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\DF_Load_FactSales.Paths[Lookup Match Output]"
-          TopLeft="126,108">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,35"
-              Start="0,0"
-              End="0,27.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,27.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-48.19138671875,7.9453125,96.3827734375,11.609375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\DF_Load_FactSales.Paths[Lookup Match Output1]"
-          TopLeft="238,165.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="103,0"
-              Start="0,0"
-              End="95.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="95.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-0.441386718750003,5,96.3827734375,11.609375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\DF_Load_FactSales.Paths[Lookup Match Output2]"
-          TopLeft="433.75,188">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,78"
-              Start="0,0"
-              End="0,70.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,70.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-48.19138671875,29.4453125,96.3827734375,11.609375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="171,42"
-          Id="Package\DF_Load_FactSales\OLE DB Destination"
-          TopLeft="62,357" />
-        <EdgeLayout
-          Id="Package\DF_Load_FactSales.Paths[Lookup Match Output3]"
-          TopLeft="435.5,308">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-288,49"
-              Start="0,0"
-              End="-288,41.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,20.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,20.5"
-                    Point2="0,24.5"
-                    Point3="-4,24.5" />
-                  <mssgle:LineSegment
-                    End="-284,24.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-284,24.5"
-                    Point2="-288,24.5"
-                    Point3="-288,28.5" />
-                  <mssgle:LineSegment
-                    End="-288,41.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-192.19138671875,29.5,96.3827734375,11.609375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-      </GraphLayout>
-    </LayoutInfo>
-  </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\DF_Load_FactSales\OLE DB Source">
+    design-time-name="Package\DF_Stage_DimGenre\OLE DB Source">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\DF_Load_FactSales\LKP_Date (DimDate)">
-    <Properties>
-      <Property>
-        <Name>OverwriteParamsSQLProp</Name>
-        <Value
-          type="q2:boolean">false</Value>
-      </Property>
-      <Property>
-        <Name>UsedTableName</Name>
-        <Value
-          type="q3:string">[dw].[DimDate]</Value>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q4:int">0</Value>
-      </Property>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\DF_Load_FactSales\LKP_Customer (DimCustomer)">
-    <Properties>
-      <Property>
-        <Name>OverwriteParamsSQLProp</Name>
-        <Value
-          type="q2:boolean">false</Value>
-      </Property>
-      <Property>
-        <Name>UsedTableName</Name>
-        <Value
-          type="q3:string">[dw].[DimCustomer]</Value>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q4:int">0</Value>
-      </Property>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\DF_Load_FactSales\LKP_Artist (DimArtist)">
-    <Properties>
-      <Property>
-        <Name>OverwriteParamsSQLProp</Name>
-        <Value
-          type="q2:boolean">false</Value>
-      </Property>
-      <Property>
-        <Name>UsedTableName</Name>
-        <Value
-          type="q3:string">[dw].[DimArtist]</Value>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q4:int">0</Value>
-      </Property>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\DF_Load_FactSales\LKP_Genre (DimGenre)">
-    <Properties>
-      <Property>
-        <Name>OverwriteParamsSQLProp</Name>
-        <Value
-          type="q2:boolean">false</Value>
-      </Property>
-      <Property>
-        <Name>UsedTableName</Name>
-        <Value
-          type="q3:string">[dw].[DimGenre]</Value>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q4:int">0</Value>
-      </Property>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\DF_Load_FactSales\OLE DB Destination">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
       </Property>
     </Properties>
   </PipelineComponentMetadata>
