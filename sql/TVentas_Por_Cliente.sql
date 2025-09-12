@@ -1,3 +1,6 @@
+USE DW_Chinook;
+GO
+
 --Total de ventas por cliente
 SELECT 
   dc.CustomerId_NK   AS CustomerId,

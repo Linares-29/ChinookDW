@@ -1,3 +1,9 @@
+USE DW_Chinook;
+GO
+
+USE DW_Chinook;
+GO
+
 --Total de ventas por país
 SELECT 
   dc.Country,
@@ -6,6 +12,12 @@ FROM dw.FactSales fs
 JOIN dw.DimCustomer dc ON dc.CustomerKey = fs.CustomerKey
 GROUP BY dc.Country
 ORDER BY TotalVentas DESC;
+
+-- Conteo y muestra de la tabla de hechos
+USE DW_Chinook;
+SELECT COUNT(*) AS FactSalesRows FROM dw.FactSales;
+SELECT TOP 10 * FROM dw.FactSales ORDER BY FactSalesId;
+
 
 USE DW_Chinook;
 GO

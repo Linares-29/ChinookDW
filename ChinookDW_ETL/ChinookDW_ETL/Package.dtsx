@@ -11,8 +11,8 @@
   DTS:LocaleID="2058"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="33"
-  DTS:VersionGUID="{C041CAD0-7C4B-49DE-AA36-07CF119B5144}">
+  DTS:VersionBuild="36"
+  DTS:VersionGUID="{96EEE759-C97F-4B69-B0AF-66F6C5E1A3B9}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -2344,14 +2344,14 @@ FROM dbo.Genre;</property>
         <NodeLayout
           Size="173,42"
           Id="Package\DF_Stage_DimArtist"
-          TopLeft="293,50" />
+          TopLeft="295.307692307692,50.7692307692308" />
         <NodeLayout
           Size="187,42"
           Id="Package\SQL_MERGE_DimArtist"
-          TopLeft="299,164" />
+          TopLeft="301.307692307692,164.76923076923" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
-          TopLeft="379.5,92">
+          TopLeft="381.807692307692,92.7692307692307">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -2386,14 +2386,14 @@ FROM dbo.Genre;</property>
         <NodeLayout
           Size="177,42"
           Id="Package\DF_Stage_DimGenre"
-          TopLeft="577,60" />
+          TopLeft="600.846153846153,57.6923076923077" />
         <NodeLayout
           Size="190,42"
           Id="Package\SQL_MERGE_DimGenre"
-          TopLeft="579,161" />
+          TopLeft="602.846153846153,158.692307692308" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 2]"
-          TopLeft="665.5,102">
+          TopLeft="689.346153846153,99.6923076923077">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -2428,11 +2428,11 @@ FROM dbo.Genre;</property>
         <NodeLayout
           Size="173,42"
           Id="Package\SQL_Load_DimDate"
-          TopLeft="863,99" />
+          TopLeft="843.76923076923,103.615384615385" />
         <NodeLayout
           Size="170,42"
           Id="Package\DF_Load_FactSales"
-          TopLeft="1122,101" />
+          TopLeft="1069.69230769231,103.307692307692" />
       </GraphLayout>
     </LayoutInfo>
   </Package>

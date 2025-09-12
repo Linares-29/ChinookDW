@@ -1,3 +1,6 @@
+USE DW_Chinook;
+GO
+
 --Total de ventas por género musical
 SELECT 
   dg.GenreName,
