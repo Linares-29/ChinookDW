@@ -11,8 +11,8 @@
   DTS:LocaleID="2058"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="30"
-  DTS:VersionGUID="{A18DC6E5-F92C-4B47-AA2C-687CD9E21688}">
+  DTS:VersionBuild="33"
+  DTS:VersionGUID="{C041CAD0-7C4B-49DE-AA36-07CF119B5144}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -2386,14 +2386,14 @@ FROM dbo.Genre;</property>
         <NodeLayout
           Size="177,42"
           Id="Package\DF_Stage_DimGenre"
-          TopLeft="51,285" />
+          TopLeft="577,60" />
         <NodeLayout
           Size="190,42"
           Id="Package\SQL_MERGE_DimGenre"
-          TopLeft="53,386" />
+          TopLeft="579,161" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 2]"
-          TopLeft="139.5,327">
+          TopLeft="665.5,102">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -2428,11 +2428,11 @@ FROM dbo.Genre;</property>
         <NodeLayout
           Size="173,42"
           Id="Package\SQL_Load_DimDate"
-          TopLeft="328,286" />
+          TopLeft="863,99" />
         <NodeLayout
           Size="170,42"
           Id="Package\DF_Load_FactSales"
-          TopLeft="340,393" />
+          TopLeft="1122,101" />
       </GraphLayout>
     </LayoutInfo>
   </Package>
