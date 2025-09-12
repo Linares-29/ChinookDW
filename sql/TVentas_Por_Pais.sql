@@ -1,4 +1,4 @@
--- Total de ventas por país
+--Total de ventas por país
 SELECT 
   dc.Country,
   SUM(fs.LineTotal) AS TotalVentas

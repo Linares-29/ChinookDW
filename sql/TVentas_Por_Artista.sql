@@ -1,4 +1,4 @@
--- Total de ventas por artista
+--Total de ventas por artista
 SELECT 
   da.ArtistName,
   SUM(fs.LineTotal) AS TotalVentas

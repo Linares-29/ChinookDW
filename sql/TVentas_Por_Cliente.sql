@@ -1,4 +1,4 @@
--- Total de ventas por cliente
+--Total de ventas por cliente
 SELECT 
   dc.CustomerId_NK   AS CustomerId,
   dc.FirstName + ' ' + dc.LastName AS Cliente,
