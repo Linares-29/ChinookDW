@@ -2,6 +2,35 @@ CREATE DATABASE DW_Chinook;
 GO
 USE DW_Chinook;
 GO
+
+-- STAGING que faltan
+IF OBJECT_ID('dw.stg_Invoice') IS NULL
+CREATE TABLE dw.stg_Invoice(
+  InvoiceId INT, CustomerId INT, InvoiceDate DATETIME,
+  BillingAddress NVARCHAR(120), BillingCity NVARCHAR(80),
+  BillingState NVARCHAR(80), BillingCountry NVARCHAR(80),
+  BillingPostalCode NVARCHAR(20), Total DECIMAL(12,2)
+);
+
+IF OBJECT_ID('dw.stg_InvoiceLine') IS NULL
+CREATE TABLE dw.stg_InvoiceLine(
+  InvoiceLineId INT, InvoiceId INT, TrackId INT,
+  UnitPrice DECIMAL(10,2), Quantity INT
+);
+
+IF OBJECT_ID('dw.stg_Track') IS NULL
+CREATE TABLE dw.stg_Track(
+  TrackId INT, Name NVARCHAR(200), AlbumId INT NULL,
+  MediaTypeId INT, GenreId INT NULL, Composer NVARCHAR(220) NULL,
+  Milliseconds INT, Bytes INT NULL, UnitPrice DECIMAL(10,2)
+);
+
+IF OBJECT_ID('dw.stg_Album') IS NULL
+CREATE TABLE dw.stg_Album(AlbumId INT, Title NVARCHAR(160), ArtistId INT);
+
+IF OBJECT_ID('dw.stg_MediaType') IS NULL
+CREATE TABLE dw.stg_MediaType(MediaTypeId INT, Name NVARCHAR(120));
+
 CREATE SCHEMA dw;  -- “carpeta lógica” para tablas del DW
 GO
 
@@ -35,7 +64,7 @@ CREATE TABLE dw.DimGenre(
   GenreName NVARCHAR(120) NOT NULL
 );
 
--- (Opcional) DimTrack
+-- DimTrack
 CREATE TABLE dw.DimTrack(
   TrackKey INT IDENTITY(1,1) PRIMARY KEY,
   TrackId_NK INT NOT NULL UNIQUE,
@@ -68,3 +97,37 @@ CREATE INDEX IX_FactSales_Date   ON dw.FactSales(DateKey);
 CREATE INDEX IX_FactSales_Cust   ON dw.FactSales(CustomerKey);
 CREATE INDEX IX_FactSales_Artist ON dw.FactSales(ArtistKey);
 CREATE INDEX IX_FactSales_Genre  ON dw.FactSales(GenreKey);
+
+
+TRUNCATE TABLE dw.stg_Invoice;
+INSERT INTO dw.stg_Invoice
+(InvoiceId,CustomerId,InvoiceDate,BillingAddress,BillingCity,BillingState,BillingCountry,BillingPostalCode,Total)
+SELECT InvoiceId,CustomerId,InvoiceDate,BillingAddress,BillingCity,BillingState,BillingCountry,BillingPostalCode,Total
+FROM   Chinook.dbo.Invoice;
+
+TRUNCATE TABLE dw.stg_InvoiceLine;
+INSERT INTO dw.stg_InvoiceLine (InvoiceLineId,InvoiceId,TrackId,UnitPrice,Quantity)
+SELECT InvoiceLineId,InvoiceId,TrackId,UnitPrice,Quantity
+FROM   Chinook.dbo.InvoiceLine;
+
+TRUNCATE TABLE dw.stg_Track;
+INSERT INTO dw.stg_Track (TrackId,Name,AlbumId,MediaTypeId,GenreId,Composer,Milliseconds,Bytes,UnitPrice)
+SELECT TrackId,Name,AlbumId,MediaTypeId,GenreId,Composer,Milliseconds,Bytes,UnitPrice
+FROM   Chinook.dbo.Track;
+
+TRUNCATE TABLE dw.stg_Album;
+INSERT INTO dw.stg_Album (AlbumId,Title,ArtistId)
+SELECT AlbumId,Title,ArtistId
+FROM   Chinook.dbo.Album;
+
+TRUNCATE TABLE dw.stg_MediaType;
+INSERT INTO dw.stg_MediaType (MediaTypeId,Name)
+SELECT MediaTypeId,Name
+FROM   Chinook.dbo.MediaType;
+
+-- Validación rápida
+SELECT 'stg_Invoice'     AS tbl, COUNT(*) c FROM dw.stg_Invoice     UNION ALL
+SELECT 'stg_InvoiceLine' AS tbl, COUNT(*) c FROM dw.stg_InvoiceLine UNION ALL
+SELECT 'stg_Track'       AS tbl, COUNT(*) c FROM dw.stg_Track       UNION ALL
+SELECT 'stg_Album'       AS tbl, COUNT(*) c FROM dw.stg_Album       UNION ALL
+SELECT 'stg_MediaType'   AS tbl, COUNT(*) c FROM dw.stg_MediaType;

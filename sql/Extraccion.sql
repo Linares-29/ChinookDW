@@ -79,11 +79,7 @@ CREATE TABLE dw.DimGenre(
   GenreName  NVARCHAR(120) NOT NULL
 );
 
-SELECT COUNT(*) FROM dw.DimGenre;
-SELECT TOP 5 * FROM dw.DimGenre;
 
-SELECT COUNT(*) FROM dw.DimDate;
-SELECT TOP 5 * FROM dw.DimDate;
 
 USE DW_Chinook;
 IF OBJECT_ID('dw.FactSales') IS NULL
@@ -103,6 +99,24 @@ CREATE TABLE dw.FactSales(
   CONSTRAINT FK_Fact_Artist FOREIGN KEY (ArtistKey)   REFERENCES dw.DimArtist(ArtistKey),
   CONSTRAINT FK_Fact_Genre  FOREIGN KEY (GenreKey)    REFERENCES dw.DimGenre(GenreKey)
 );
+
+USE DW_Chinook;
+GO
+SELECT COUNT(*) FROM dw.DimCustomer;
+SELECT TOP 10 * FROM dw.DimCustomer;
+
+
+SELECT COUNT(*) FROM dw.DimGenre;
+SELECT TOP 5 * FROM dw.DimGenre;
+
+SELECT COUNT(*) FROM dw.DimDate;
+SELECT TOP 5 * FROM dw.DimDate;
+
+SELECT COUNT(*) FROM dw.DimTrack;
+SELECT TOP 5 * FROM dw.DimTrack;
+
+SELECT TOP 10 *FROM dw.stg_InvoiceLine
+ORDER BY InvoiceLineId;
 
 SELECT COUNT(*) FROM dw.FactSales;
 SELECT TOP 10 * FROM dw.FactSales ORDER BY FactSalesId;
